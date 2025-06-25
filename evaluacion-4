@@ -1,0 +1,64 @@
+# Opción 1: Comprar entrada
+def comprar_entrada():
+    nombre = input("Ingrese nombre de comprador: ")
+
+    if nombre in compradores:
+        print("El nombre ya está registrado.")
+        return
+
+    tipo = input("Ingrese tipo de entrada (G/V): ").upper()
+    if tipo not in ("G", "V"):
+        print("Tipo de entrada no válido.")
+        return
+
+    while True:
+        codigo = input("Ingrese código de confirmación: ")
+        if validar_codigo(codigo):
+            compradores[nombre] = {"tipo": tipo, "codigo": codigo}
+            print("Código validado. ¡Entrada registrada con éxito!")
+            break
+        else:
+            print("Código no válido. Intente otra vez.")
+
+# Opción 2: Consultar comprador
+def consultar_comprador():
+    nombre = input("Ingrese nombre de comprador a buscar: ")
+    if nombre in compradores:
+        datos = compradores[nombre]
+        print(f"Tipo de entrada: {datos['tipo']}, Código: {datos['codigo']}")
+    else:
+        print("El comprador no se encuentra.")
+
+# Opción 3: Cancelar compra
+def cancelar_compra():
+    nombre = input("Ingrese nombre de comprador a cancelar: ")
+    if nombre in compradores:
+        del compradores[nombre]
+        print("¡Compra cancelada!")
+    else:
+        print("No se pudo cancelar la compra.")
+
+# Menú principal
+def menu():
+    while True:
+        print("\nMENU PRINCIPAL")
+        print("1.- Comprar entrada.")
+        print("2.- Consultar comprador.")
+        print("3.- Cancelar compra.")
+        print("4.- Salir.")
+        opcion = input("Ingrese opción: ")
+
+        if opcion == "1":
+            comprar_entrada()
+        elif opcion == "2":
+            consultar_comprador()
+        elif opcion == "3":
+            cancelar_compra()
+        elif opcion == "4":
+            print("Programa terminado.")
+            break
+        else:
+            print("Debe ingresar una opción válida!!")
+
+# Ejecutar programa
+menu()
